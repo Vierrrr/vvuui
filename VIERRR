@@ -1,0 +1,961 @@
+
+
+import javax.swing.*;
+
+import java.awt.*;
+
+import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+
+public class TVESpecializationGuide extends JFrame implements ActionListener {
+
+private JTextField nameField;
+
+private JComboBox<String> specializationComboBox;
+
+private ButtonGroup objectiveGroup;
+
+public TVESpecializationGuide() {
+
+setTitle("TVE Specialization Guide");
+
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+setSize(770, 500);
+
+setLocationRelativeTo(null);
+
+
+getContentPane().setBackground(Color.BLACK);
+
+
+JPanel backgroundPanel = new JPanel(new GridLayout(0, 1, 0, 20));
+
+backgroundPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+backgroundPanel.setBackground(Color.DARK_GRAY);
+
+
+JPanel titlePanel = new JPanel(new GridLayout(3, 1));
+
+JLabel titleLabel1 = new JLabel("TVE");
+
+JLabel titleLabel2 = new JLabel("Specialization");
+
+JLabel titleLabel3 = new JLabel("Guide");
+titleLabel1.setFont(new Font("Arial", Font.BOLD, 33));
+
+titleLabel2.setFont(new Font("Arial", Font.BOLD, 33));
+
+titleLabel3.setFont(new Font("Arial", Font.BOLD, 33));
+
+titleLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+
+titleLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+
+titleLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+
+titleLabel1.setForeground(Color.WHITE);
+
+titleLabel2.setForeground(Color.WHITE);
+
+titleLabel3.setForeground(Color.WHITE);
+
+titlePanel.setBackground(Color.DARK_GRAY);
+
+titlePanel.add(titleLabel1);
+
+titlePanel.add(titleLabel2);
+
+titlePanel.add(titleLabel3);
+
+backgroundPanel.add(titlePanel);
+
+
+JPanel inputPanel = new JPanel(new GridLayout(0, 2, 10, 10));
+
+inputPanel.setBackground(Color.DARK_GRAY);
+
+inputPanel.setOpaque(true);
+
+JLabel nameLabel = new JLabel("Name:");
+
+nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+nameLabel.setForeground(Color.WHITE);
+
+inputPanel.add(nameLabel);
+
+
+nameField = new JTextField();
+
+inputPanel.add(nameField);
+
+
+JLabel specializationLabel = new JLabel("Choose a Specialization:");
+
+specializationLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+specializationLabel.setForeground(Color.WHITE);
+
+inputPanel.add(specializationLabel);
+
+
+specializationComboBox = new JComboBox<>(new String[]{"Electricity",
+"Masonry", "Carpentry", "Cookery", "Garments", "Plumbing"});
+
+inputPanel.add(specializationComboBox);
+
+
+backgroundPanel.add(inputPanel);
+
+
+JPanel objectivePanel = new JPanel(new BorderLayout());
+
+JLabel objectiveLabel = new JLabel("Choose an Objective:");
+
+objectiveLabel.setFont(new Font("Arial", Font.BOLD, 25));
+
+objectiveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+objectiveLabel.setForeground(Color.WHITE);
+
+objectivePanel.setBackground(Color.DARK_GRAY);
+
+
+JPanel radioPanel = new JPanel(new GridLayout(0, 2));
+
+radioPanel.setBackground(Color.DARK_GRAY);
+
+objectiveGroup = new ButtonGroup();
+
+JRadioButton objectiveARadioButton = new JRadioButton("Specialization Review");
+
+JRadioButton objectiveBRadioButton = new JRadioButton("Mentorship");
+
+JRadioButton objectiveCRadioButton = new JRadioButton("Skills"
+		+ "Assessment and Gap Analysis");
+
+objectiveARadioButton.setFont(new Font("Arial", Font.PLAIN, 20));
+
+objectiveBRadioButton.setFont(new Font("Arial", Font.PLAIN, 20));
+
+objectiveCRadioButton.setFont(new Font("Arial", Font.PLAIN, 20));
+
+objectiveARadioButton.setForeground(Color.WHITE);
+
+objectiveBRadioButton.setForeground(Color.WHITE);
+
+objectiveCRadioButton.setForeground(Color.WHITE);
+
+objectiveARadioButton.setBackground(Color.DARK_GRAY);
+
+objectiveBRadioButton.setBackground(Color.DARK_GRAY);
+
+objectiveCRadioButton.setBackground(Color.DARK_GRAY);
+
+objectiveARadioButton.setActionCommand("Specialization Review");
+
+objectiveBRadioButton.setActionCommand("Mentorship");
+
+objectiveCRadioButton.setActionCommand("Skills Assessment and Gap Analysis");
+
+objectiveGroup.add(objectiveARadioButton);
+
+objectiveGroup.add(objectiveBRadioButton);
+
+objectiveGroup.add(objectiveCRadioButton);
+
+radioPanel.add(objectiveARadioButton);
+
+radioPanel.add(objectiveBRadioButton);
+
+radioPanel.add(objectiveCRadioButton);
+
+
+objectivePanel.add(objectiveLabel, BorderLayout.NORTH);
+
+objectivePanel.add(radioPanel, BorderLayout.CENTER);
+
+backgroundPanel.add(objectivePanel);
+
+
+JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+JButton nextButton = new JButton("Next");
+
+nextButton.addActionListener(this);
+
+nextButton.setBackground(Color.BLACK);
+
+nextButton.setForeground(Color.WHITE);
+
+buttonPanel.setBackground(Color.DARK_GRAY);
+
+buttonPanel.add(nextButton);
+
+backgroundPanel.add(buttonPanel);
+
+
+add(backgroundPanel);
+
+
+setVisible(true);
+
+}
+
+
+private void displayDescription(String description) {
+
+JFrame descriptionFrame = new JFrame();
+
+descriptionFrame.setTitle("Specialization Description");
+
+descriptionFrame.setSize(800, 600);
+
+descriptionFrame.setLocationRelativeTo(null);
+
+
+JTextArea descriptionArea = new JTextArea(description);
+
+descriptionArea.setFont(new Font("Arial", Font.PLAIN, 18));
+
+descriptionArea.setLineWrap(true);
+
+descriptionArea.setWrapStyleWord(true);
+
+descriptionArea.setEditable(false);
+
+
+JScrollPane scrollPane = new JScrollPane(descriptionArea);
+
+descriptionFrame.add(scrollPane);
+
+
+descriptionFrame.setVisible(true);
+
+}
+
+
+public void actionPerformed(ActionEvent e) {
+
+if (e.getActionCommand().equals("Next")) {
+
+String name = nameField.getText();
+
+String specialization = (String) specializationComboBox.getSelectedItem();
+
+String selectedObjective = "";
+
+if (objectiveGroup.getSelection() != null) {
+
+selectedObjective = objectiveGroup.getSelection().getActionCommand();
+
+}
+
+
+
+if ("Specialization Review".equals(selectedObjective)) {
+
+switch (specialization) {
+
+case "Electricity":
+
+displayDescription("Electricity Specialization Description:\n\n" +
+
+"The Electricity specialization focuses on equipping individuals withthe knowledge and skills necessary to work with electrical systems andcomponents. In this specialization, students delve into conceptsrelated to electrical circuits, power distribution, wiring, and safetyprotocols. Emphasizing hands-on training, students gain practicalexperience in installing, troubleshooting, and maintaining electricalsystems.\n\n" +
+
+"Real-world applications of the Electricity specialization span acrossvarious industries, including construction, manufacturing, renewableenergy, telecommunications, and infrastructure development.Electricians play a vital role in ensuring the functionality andsafety of electrical systems in buildings, factories, power plants,and communication networks.\n\n" +
+
+"Industry relevance is a key aspect of the Electricity specialization,as skilled electricians are in high demand across diverse sectors. Theknowledge and expertise acquired in this specialization are essentialfor addressing contemporary challenges such as sustainable energypractices, technological advancements in electrical systems, andsafety regulations compliance.\n\n" +
+
+"By providing comprehensive reviews of the Electricity specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in the electrical trades within the Technicaland Vocational Education (TVE) field.");
+
+break;
+
+case "Masonry":
+
+displayDescription("Masonry Specialization Description:\n\n" +
+
+"The Masonry specialization focuses on developing expertise in theconstruction and maintenance of structures using materials such asbricks, stones, and concrete. Students in this specialization learnvarious techniques for laying, bonding, and finishing masonry units tocreate durable and aesthetically pleasing structures.\n\n" +
+
+"Real-world applications of the Masonry specialization encompass awide range of construction projects, including residential buildings,commercial complexes, infrastructure projects, and historicalrestoration efforts. Masons play a crucial role in shaping thephysical landscape by constructing walls, foundations, pavements, andarchitectural features that withstand the test of time.\n\n" +
+
+"Industry relevance is paramount in the Masonry specialization, as skilled masons are in demand across the construction industry. Theknowledge and skills acquired in this specialization are essential formeeting the evolving needs of the construction sector, includingadvancements in building materials, techniques, and sustainabilitypractices.\n\n" +
+
+"By providing comprehensive reviews of the Masonry specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in masonry within the Technical and VocationalEducation (TVE) field.");
+
+break;
+
+case "Carpentry":
+
+displayDescription("Carpentry Specialization Description:\n\n" +
+
+"The Carpentry specialization focuses on developing expertise inwoodworking and construction of structures using timber and relatedmaterials. Students in this specialization learn various techniquesfor cutting, shaping, joining, and finishing wood to create a widerange of structures and architectural elements.\n\n" +
+
+"Real-world applications of the Carpentry specialization span acrossresidential, commercial, and industrial construction projects.Carpenters are involved in building and installing frameworks, roofs,floors, doors, windows, and various interior and exterior features ofbuildings. Their craftsmanship contributes to the functionality,aesthetics, and structural integrity of diverse structures.\n\n" +
+
+"Industry relevance is paramount in the Carpentry specialization, asskilled carpenters are essential contributors to the constructioindustry. The knowledge and skills acquired in this specialization arein demand for meeting the needs of modern construction practices,including sustainable building techniques, use of eco-friendlymaterials, and adherence to safety regulations.\n\n" +
+
+"By providing comprehensive reviews of the Carpentry specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in carpentry within the Technical andVocational Education (TVE) field.\n\n");
+
+break;
+
+case "Cookery":
+
+displayDescription("Cookery Specialization Description:\n\n" +
+
+"The Cookery specialization focuses on developing culinary skills and expertise in food preparation, cooking techniques, and kitchen management. Students in this specialization learn various cooking methods, culinary arts, food safety practices, nutrition principles,and menu planning.\n\n" +
+
+"Real-world applications of the Cookery specialization encompass awide range of settings, including restaurants, hotels, cateringservices, healthcare facilities, cruise ships, and culinary educationinstitutions. Cooks and chefs play a pivotal role in creating diverseand delicious dishes, catering to the preferences of customers andadhering to industry standards for quality and presentation.\n\n" +
+
+"Industry relevance is paramount in the Cookery specialization, asskilled cooks and chefs are in demand across the food service andhospitality sectors. The knowledge and skills acquired in thisspecialization are essential for meeting the evolving demands of theculinary industry, including trends in international cuisine, dietary preferences, and culinary innovation.\n\n" +
+
+"By providing comprehensive reviews of the Cookery specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in cookery within the Technical and VocationalEducation (TVE) field.\n\n");
+
+break;
+
+case "Garments":
+
+displayDescription ("Garments Specialization Description:\n\n" +
+
+"The Garments specialization focuses on developing skills in garment design, production, and fashion industry practices. Students in this specialization learn various techniques for pattern making, fabric selection, cutting, sewing, and garment assembly, as well as principles of fashion design and styling.\n\n" +
+
+"Real-world applications of the Garments specialization encompass the fashion and textile industries, including apparel manufacturing, fashion design studios, textile mills, retail stores, and fashion houses. Garment workers contribute to the creation of diverse clothing items, ranging from everyday wear to haute couture, and play a crucial role in bringing fashion concepts to life.\n\n" +
+
+"Industry relevance is paramount in the Garments specialization, as skilled garment workers are essential contributors to the fashion and textile sectors. The knowledge and skills acquired in this specialization are in demand for meeting the needs of modern fashion trends, consumer preferences, sustainability practices, and technological advancements in garment manufacturing.\n\n" +
+
+"By providing comprehensive reviews of the Garments specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in garment making within the Technical andVocational Education (TVE) field.\n\n");
+
+
+break;
+
+case "Plumbing":
+
+displayDescription ("Plumbing Specialization Description:\n\n" +
+
+"The Plumbing specialization focuses on developing skills in theinstallation, maintenance, and repair of plumbing systems used inresidential, commercial, and industrial settings. Students in thisspecialization learn various techniques for pipefitting, fixtureinstallation, water supply systems, drainage systems, and plumbingcode compliance.\n\n" +
+
+"Real-world applications of the Plumbing specialization are essentialfor ensuring the functionality and safety of buildings andinfrastructure. Plumbers play a critical role in constructing,maintaining, and repairing plumbing systems that provide clean water supply, remove wastewater, and facilitate efficient drainage. Theiwork contributes to the health, sanitation, and comfort ofcommunities.\n\n" +
+
+"Industry relevance is paramount in the Plumbing specialization, asskilled plumbers are in demand across various sectors, includingconstruction, maintenance services, municipal utilities, and facilitymanagement. The knowledge and skills acquired in this specializationare essential for addressing contemporary challenges such as waterconservation, sustainable plumbing practices, and compliance withbuilding codes and regulations.\n\n" +
+
+"By providing comprehensive reviews of the Plumbing specialization,this objective aims to highlight its real-world applications andindustry relevance, empowering individuals to make informed decisionsabout pursuing a career in plumbing within the Technical andVocational Education (TVE) field.\n\n");
+
+break;
+
+default:
+
+break;
+
+}
+
+}
+
+else if ("Mentorship".equals(selectedObjective)) {
+
+switch (specialization) {
+
+case "Electricity":
+
+displayMentors("Electricity");
+
+break;
+
+case "Masonry":
+
+displayMentors("Masonry");
+
+break;
+
+case "Carpentry":
+
+displayMentors("Carpentry");
+
+break;
+
+case "Cookery":
+
+displayMentors("Cookery");
+
+break;
+
+case "Garments":
+
+displayMentors("Garments");
+
+break;
+
+case "Plumbing":
+
+displayMentors("Plumbing");
+
+break;
+
+default:
+
+break;
+
+}
+
+}
+
+if ("Skills Assessment and Gap Analysis".equals(selectedObjective)) {
+
+switch (specialization) {
+
+case "Electricity":
+
+displaySkillsAssessmentAndGapAnalysisElectricity();
+
+break;
+
+case "Masonry":
+
+displaySkillsAssessmentAndGapAnalysisMasonry();
+
+break;
+
+case "Carpentry":
+
+displaySkillsAssessmentAndGapAnalysisCarpentry();
+
+break;
+
+case "Cookery":
+
+displaySkillsAssessmentAndGapAnalysisCookery();
+
+break;
+
+case "Garments":
+
+displaySkillsAssessmentAndGapAnalysisGarments();
+
+break;
+
+case "Plumbing":
+
+displaySkillsAssessmentAndGapAnalysisPlumbing();
+
+break;
+
+default:
+
+break;
+
+}
+
+}
+
+}
+
+}
+
+
+private void displayMentors(String specialization) {
+
+JTextArea mentorTextArea = new JTextArea();
+
+mentorTextArea.setEditable(false);
+
+mentorTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
+
+mentorTextArea.setLineWrap(true);
+
+mentorTextArea.setWrapStyleWord(true);
+
+mentorTextArea.setBackground(Color.gray);
+
+mentorTextArea.setForeground(Color.BLACK);
+
+switch (specialization) {
+
+case "Electricity":
+
+mentorTextArea.setText("Mentors for Electricity:\n\n" +
+
+"1. Henrex M. Hernandez\n" +
+
+" Gmail: hernandezhenrex16@gmail.com\n" +
+
+" Contact Number: 09932636537\n" +
+
+" Schedule Availability: Friday (1:00-5:00 pm)\n\n" +
+
+"2. Jerveni Elinon Tumulac\n" +
+
+" Gmail: jervenitumulac9@gmail.com\n" +
+
+" Contact Number: 09663044739\n" +
+
+" Schedule Availability: Anytime\n\n" +
+
+"3. Jocard Duay\n" +
+
+" Gmail: jocardduay68@gmail.com\n" +
+
+" Contact Number: 09755419467\n" +
+
+" Schedule Availability: Mon/Wed 7:00-12:00 pm\n");
+
+break;
+
+case "Masonry":
+
+mentorTextArea.setText("Mentors for Masonry:\n\n" +
+
+"1. Michael B. Salvador\n" +
+
+" Gmail: michaelsalavdor19@gmail.com\n" +
+
+" Contact Number: 09655347669\n" +
+
+" Schedule Availability: Monday-Friday Whole day\n\n" +
+
+"2. John Paul Cordovilla\n" +
+
+" Gmail: cordovillajohnpaul27@gmail.com\n" +
+
+" Contact Number: 09755905303\n" +
+
+" Schedule Availability: Monday-Saturday 5:00-9:00 pm\n\n" +
+
+"3. Chavie C. Julian\n" +
+
+" Gmail: cadangdangchavie@gmail.com\n" +
+
+" Contact Number: 09486375199\n" +
+
+" Schedule Availability: Monday-Friday Whole day\n");
+
+break;
+
+case "Carpentry":
+
+mentorTextArea.setText("Mentors for Carpentry:\n\n" +
+
+"1. Ansel Kim Cadangdang\n" +
+
+" Gmail: kadangdanganselkm22@gmail.com\n" +
+
+" Contact Number: 09659801723\n" +
+
+" Schedule Availability: Monday-Friday 8:00-10:00am\n\n" +
+
+"2. Albert Panuayan\n" +
+
+" Gmail: albert021504@gmail.com\n" +
+
+" Contact Number: 09456313542\n" +
+
+" Schedule Availability: Monday-Wednesday 5:30-6:30pm\n\n" +
+
+"3. Richoco Dave Ferrando\n" +
+
+" Gmail: Richferrando0266@gmail.com\n"+
+
+" Contact Number: 09552593654\n"+
+
+" Schedule Availability: Monday 7:30-10:00am");
+
+break;
+
+case "Cookery":
+
+mentorTextArea.setText("Mentors for Cookery:\n\n" +
+
+"1. Roudze Cedrick Lianza\n" +
+
+" Gmail: roudezcedricklianze2024@gmail.com\n" +
+
+" Contact Number: 09161036903\n" +
+
+" Schedule Availability: Monday-Friday 9:00 am-4:00 pm\n\n" +
+
+"2. Jarmel  Balante \n" +
+
+" Gmail:Jarmelbalante53@gmail.com\n" +
+
+" Contact Number: 09652376835\n" +
+
+" Schedule Availability:  WED\n\n" +
+
+"3. GIO D. GUIÑAREZ\n" +
+
+" Gmail:guinaresgio04@gmail.com\n"+
+" Contact Number:09057479283\n"+
+" Schedule of Availability:MON to WED 5:00 pm\n");
+
+
+break;
+
+case "Garments":
+
+mentorTextArea.setText("Mentors for Garments:\n\n" +
+
+"1. Irene Magbasa Sumaganday\n" +
+
+" Gmail: sumagandayirene1@gmail.com\n" +
+
+" Contact Number: 09647583996\n" +
+
+" Schedule Availability:Monday - Friday Whole day\r\n"
++ "\n\n" +
+
+"2. JANICE D. TANGGAPA\n" +
+
+"janicetanggapa6@gmail.com\n" +
+
+" Contact Number:09659801704\n" +
+
+" Schedule Availability: MONDAY-FRIDAYpm\n\n" );
+
+
+break;
+
+case "Plumbing":
+
+mentorTextArea.setText("Mentors for Plumbing:\n\n" +
+
+"1. Airo Jay Munsad\n" +
+
+" Gmail: airoongcay8@gmail.com\n" +
+
+" Contact Number: 09361078082\n" +
+
+" Schedule Availability: Monday to Tuesday 8:00 am to 1:00 pm\n\n" +
+
+"2. Gerald M. Paulinio\n" +
+
+" Gmail: geraldpaulinio45@gmail.com\n" +
+
+" Contact Number: 09971521855\n" +
+
+" Schedule Availability: M- W 3:00- 5:00 pm\n\n" +
+
+"3. IDONG BRANDON U. \n" +
+
+"Gmail: b.idong.551033@umindanao.edu.ph\n"+
+"Contact Number:09658218155\n"+
+" Schedule Availability:Monday to Wednesday 1:00 to 2:00\n");
+
+
+
+		
+
+break;
+
+default:
+
+break;
+
+}
+
+
+JScrollPane scrollPane = new JScrollPane(mentorTextArea);
+
+JFrame mentorFrame = new JFrame("Mentors for " + specialization);
+
+mentorFrame.getContentPane().add(scrollPane);
+
+mentorFrame.setSize(850, 600);
+
+mentorFrame.setLocationRelativeTo(null);
+
+mentorFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisElectricity() {
+
+String assessmentText = "Skills Assessment and Gap Analysis -Electricity Specialization:\n\n" +
+
+"1. Electrical Circuit Analysis: Assess the ability to analyze antroubleshoot electrical circuits, including understanding circuidiagrams, identifying components, and diagnosing faults.\n\n" +
+
+"2. Power Distribution Systems: Evaluate knowledge and skills relatedto power distribution systems, including understanding differentvoltage levels, distribution panel configurations, and safetyprotocols.\n\n" +
+
+"3. Wiring and Installation: Assess proficiency in wiring techniques,cable management, and installation practices for electricalcomponents, switches, outlets, and fixtures.\n\n" +
+
+"4. Safety Protocols and Regulations: Evaluate knowledge of safetyprotocols and regulations related to electrical work, including propergrounding, insulation, and compliance with electrical codes andstandards.\n\n" +
+
+"5. Hands-on Skills: Assess practical skills through hands-on taskssuch as installing electrical fixtures, troubleshooting electricalfaults, and safely handling electrical tools and equipment.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Electricity Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisMasonry() {
+
+String assessmentText = "Skills Assessment and Gap Analysis - MasonrySpecialization:\n\n" +
+
+"1. Masonry Techniques: Evaluate proficiency in various masonrytechniques, including bricklaying, block laying, stone masonry, andconcrete work.\n\n" +
+
+"2. Structural Integrity: Assess understanding of structuralprinciples and techniques for ensuring the stability, strength, anddurability of masonry structures.\n\n" +
+
+"3. Material Selection and Preparation: Evaluate knowledge ofdifferent types of masonry materials, their properties, andappropriate methods for preparing and handling them.\n\n" +
+
+"4. Finishing and Detailing: Assess skills in finishing and detailingmasonry work, including mortar joints, surface textures, anddecorative elements.\n\n" +
+
+"5. Safety Practices: Evaluate adherence to safety practices andregulations specific to masonry work, including proper handling oftools, equipment, and materials, as well as fall protectionmeasures.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Masonry Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisCarpentry() {
+
+String assessmentText = "Skills Assessment and Gap Analysis -Carpentry Specialization:\n\n" +
+
+"1. Woodworking Techniques: Evaluate proficiency in woodworkingtechniques, including cutting, shaping, joining, and finishing wood tospecified dimensions and tolerances.\n\n" +
+
+"2. Structural Framing: Assess knowledge and skills related tostructural framing, including building frames, roofs, floors, andpartitions using timber and engineered wood products.\n\n" +
+
+"3. Cabinetry and Furniture Making: Evaluate skills in cabinetry anfurniture making, including designing, constructing, and finishingcustom cabinets, furniture pieces, and architectural millwork.\n\n" +
+
+"4. Blueprint Reading: Assess the ability to interpret and work fromconstruction blueprints, drawings, and specifications relevant tocarpentry projects.\n\n" +
+
+"5. Safety Procedures: Evaluate adherence to safety procedures andpractices specific to carpentry work, including the proper use ofpersonal protective equipment (PPE), tool safety, and hazardrecognition.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Carpentry Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisCookery() {
+
+String assessmentText = "Skills Assessment and Gap Analysis - CookerySpecialization:\n\n" +
+
+"1. Culinary Techniques: Evaluate proficiency in fundamental culinarytechniques, including knife skills, food preparation methods, cookingtechniques, and presentation skills.\n\n" +
+
+"2. Menu Planning and Recipe Development: Assess skills in menuplanning, recipe development, and creating balanced and innovativemenus tailored to different cuisines and dietary preferences.\n\n" +
+
+"3. Food Safety and Sanitation: Evaluate knowledge of food safetyprinciples, sanitation practices, and proper handling of food toprevent contamination and ensure food safety standardscompliance.\n\n" +
+
+"4. Ingredient Selection and Procurement: Assess knowledge ofingredient selection, quality assessment, and procurement practices,including sourcing fresh and seasonal ingredients and maintaininginventory.\n\n" +
+
+"5. Kitchen Management: Evaluate skills in kitchen organization,workflow management, time management, and teamwork to ensure efficientand smooth operations in a culinary environment.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Cookery Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisGarments() {
+
+String assessmentText = "Skills Assessment and Gap Analysis - GarmentsSpecialization:\n\n" +
+
+"1. Pattern Making and Cutting: Evaluate proficiency in patternmaking, cutting, and fabric layout techniques to maximize materialutilization and achieve accurate garment dimensions.\n\n" +
+
+"2. Sewing and Stitching: Assess skills in sewing, stitching, andgarment assembly using various sewing machines, equipment, andtechniques for different types of fabrics and garments.\n\n" +
+
+"3. Garment Fit and Finish: Evaluate attention to detail in achievingproper garment fit, finishing techniques, seam allowances, anddecorative embellishments to enhance garment aesthetics.\n\n" +
+
+"4. Fashion Design Principles: Assess understanding of fashion designprinciples, trends, and styles relevant to garment construction,including silhouette, color theory, fabric manipulation, and garmentembellishments.\n\n" +
+
+"5. Quality Control and Assurance: Evaluate adherence to qualitycontrol standards and procedures for inspecting, measuring, andevaluating garment construction quality, fit, and finish.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Garments Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+private void displaySkillsAssessmentAndGapAnalysisPlumbing() {
+
+String assessmentText = "Skills Assessment and Gap Analysis - PlumbingSpecialization:\n\n" +
+
+"1. Pipefitting and Installation: Evaluate proficiency in pipefittingtechniques, pipe joining methods, and installation practices for watersupply, drainage, and plumbing fixtures.\n\n" +
+
+"2. Plumbing Systems: Assess understanding of plumbing systems,including water distribution systems, drainage systems, ventingsystems, and fixture connections, as well as troubleshooting skillsfor identifying and repairing plumbing issues.\n\n" +
+
+"3. Plumbing Codes and Regulations: Evaluate knowledge of plumbingcodes, regulations, and standards relevant to plumbing installations,including compliance with building codes, safety regulations, andenvironmental requirements.\n\n" +
+
+"4. Pipe Material and Selection: Assess knowledge of different typesof piping materials, their properties, and appropriate applicationsfor water supply, drainage, and venting systems.\n\n" +
+
+"5. Safety Practices: Evaluate adherence to safety practices andprocedures specific to plumbing work, including proper handling oftools, equipment, and materials, as well as precautions for preventingleaks, floods, and other plumbing emergencies.\n\n";
+
+
+JTextArea assessmentTextArea = new JTextArea(assessmentText);
+
+assessmentTextArea.setLineWrap(true);
+
+assessmentTextArea.setWrapStyleWord(true);
+
+assessmentTextArea.setEditable(false);
+
+assessmentTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+JScrollPane scrollPane = new JScrollPane(assessmentTextArea);
+
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+JFrame assessmentFrame = new JFrame("Skills Assessment and GapAnalysis - Plumbing Specialization");
+
+assessmentFrame.add(scrollPane);
+
+assessmentFrame.setSize(800, 600);
+
+assessmentFrame.setLocationRelativeTo(null);
+
+assessmentFrame.setVisible(true);
+
+}
+
+public static void main(String[] args) {
+
+SwingUtilities.invokeLater(new Runnable() {
+
+public void run() {
+
+new TVESpecializationGuide();
+
+}
+
+});
+
+}
+
+}
+
+
+
